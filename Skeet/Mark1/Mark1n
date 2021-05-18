@@ -2,11 +2,11 @@
   "Lua": [
     {
       "Name": "zhumin",
-      "IP": ""
+      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/zhumin"
     },
     {
       "Name": "MISC_Jumpshot",
-      "IP": ""
+      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/MISC_Jumpshot"
     },
     {
       "Name": "MarkYawV3",
@@ -14,11 +14,17 @@
     },
     {
       "Name": "Customize_Logs",
-      "IP": ""
+      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/Customize_Logs"
     },
     {
       "Name": "KZWeapon",
       "IP": ""
+    }
+  ],
+  "Config": [
+    {
+      "Name": "HVH",
+      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Config/HVH"
     }
   ],
   "Users": [
