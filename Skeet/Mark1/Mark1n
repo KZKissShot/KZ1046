@@ -1,0 +1,34 @@
+{
+  "Lua": [
+    {
+      "Name": "zhumin",
+      "IP": ""
+    },
+    {
+      "Name": "MISC_Jumpshot",
+      "IP": ""
+    },
+    {
+      "Name": "MarkYawV3",
+      "IP": ""
+    },
+    {
+      "Name": "Customize_Logs",
+      "IP": ""
+    },
+    {
+      "Name": "KZWeapon",
+      "IP": ""
+    }
+  ],
+  "Users": [
+    {
+      "Name": "",
+      "IP": ""
+    },
+    {
+      "Name": "",
+      "IP": ""
+    }
+  ]
+}
