@@ -19,7 +19,15 @@
     {
       "Name": "KZWeapon",
       "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/KZWeapon"
-    }
+    },
+    {
+      "Name": "Color_effects",
+      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/ColorEffects"
+    },
+    {
+      "Name": "DT1",
+      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/DT1"
+    },
   ],
   "Config": [
     {
