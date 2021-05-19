@@ -1,0 +1,1633 @@
+-- Cracked by UltraPanda#6961
+
+local a = false
+local b = {
+    [1] = {Module = "gamesense/images", Link = "https://gamesense.pub/forums/viewtopic.php?id=22917"},
+    [2] = {Module = "gamesense/http", Link = "https://gamesense.pub/forums/viewtopic.php?id=19253"}
+}
+for c in ipairs(b) do
+    if not pcall(require, b[c].Module) then
+        local d = b[c]
+        if not a then
+            a = true
+        end
+        print(string.format("Missing Module: %s, here: %s", d.Module, d.Link))
+    end
+end
+if a then
+    error("read above [you are missing some module(s)]")
+    return
+end
+if entity.get_prop(entity.get_game_rules(), "m_bIsValveDS") == 1 then
+    error(string.format("[genesis] valve server detected!"))
+    return
+end
+local e = require "gamesense/http"
+local f, g = 1, false
+local h = require "gamesense/images"
+local i, j, k = client.screen_size, client.latency, globals.tickinterval
+local l, m = i()
+local n = panorama.open().MyPersonaAPI.GetXuid()
+j()
+k()
+function math.round(o, p)
+    local q = 10 ^ (p or 0)
+    return math.floor(o * q + 0.5) / q
+end
+local r = {}
+local s = {__index = r}
+s.__call = function(t, u, v, w)
+    u = u or t.p
+    v = v or t.y
+    w = w or t.r
+    t.p = u
+    t.y = v
+    t.r = w
+end
+local function t(x, y, z)
+    return setmetatable({p = x and x or 0, y = y and y or 0, r = z and z or 0}, s)
+end
+function r:set(x, y, z)
+    x = x or self.p
+    y = y or self.y
+    z = z or self.r
+    self.p = x
+    self.y = y
+    self.r = z
+end
+function r:offset(x, y, z)
+    x = self.p + x or 0
+    y = self.y + y or 0
+    z = self.r + z or 0
+    self.p = self.p + x
+    self.y = self.y + y
+    self.r = self.r + z
+end
+function r:clone()
+    return setmetatable({p = self.p, y = self.y, r = self.r}, s)
+end
+function r:clone_offset(x, y, z)
+    x = self.p + x or 0
+    y = self.y + y or 0
+    z = self.r + z or 0
+    return t(self.p + x, self.y + y, self.r + z)
+end
+function r:clone_set(x, z, z)
+    x = x or self.p
+    z = z or self.y
+    z = z or self.r
+    return t(x, z, z)
+end
+function r:unpack()
+    return self.p, self.y, self.r
+end
+function r:nullify()
+    self.p = 0
+    self.y = 0
+    self.r = 0
+end
+function s.__tostring(A)
+    return string.format("%s, %s, %s", A.p, A.y, A.r)
+end
+function s.__concat(A)
+    return string.format("%s, %s, %s", A.p, A.y, A.r)
+end
+function s.__add(A, B)
+    if type(A) == "number" then
+        return t(A + B.p, A + B.y, A + B.r)
+    end
+    if type(B) == "number" then
+        return t(A.p + B, A.y + B, A.r + B)
+    end
+    return t(A.p + B.p, A.y + B.y, A.r + B.r)
+end
+function s.__sub(A, B)
+    if type(A) == "number" then
+        return t(A - B.p, A - B.y, A - B.r)
+    end
+    if type(B) == "number" then
+        return t(A.p - B, A.y - B, A.r - B)
+    end
+    return t(A.p - B.p, A.y - B.y, A.r - B.r)
+end
+function s.__mul(A, B)
+    if type(A) == "number" then
+        return t(A * B.p, A * B.y, A * B.r)
+    end
+    if type(B) == "number" then
+        return t(A.p * B, A.y * B, A.r * B)
+    end
+    return t(A.p * B.p, A.y * B.y, A.r * B.r)
+end
+function s.__div(A, B)
+    if type(A) == "number" then
+        return t(A / B.p, A / B.y, A / B.r)
+    end
+    if type(B) == "number" then
+        return t(A.p / B, A.y / B, A.r / B)
+    end
+    return t(A.p / B.p, A.y / B.y, A.r / B.r)
+end
+function s.__pow(A, B)
+    if type(A) == "number" then
+        return t(math.pow(A, B.p), math.pow(A, B.y), math.pow(A, B.r))
+    end
+    if type(B) == "number" then
+        return t(math.pow(A.p, B), math.pow(A.y, B), math.pow(A.r, B))
+    end
+    return t(math.pow(A.p, B.p), math.pow(A.y, B.y), math.pow(A.r, B.r))
+end
+function s.__mod(A, B)
+    if type(A) == "number" then
+        return t(A % B.p, A % B.y, A % B.r)
+    end
+    if type(B) == "number" then
+        return t(A.p % B, A.y % B, A.r % B)
+    end
+    return t(A.p % B.p, A.y % B.y, A.r % B.r)
+end
+function s.__unm(A)
+    return t(-A.p, -A.y, -A.r)
+end
+function r:round_zero()
+    self.p = math.floor(self.p + 0.5)
+    self.y = math.floor(self.y + 0.5)
+    self.r = math.floor(self.r + 0.5)
+end
+function r:round(p)
+    self.p = math.round(self.p, p)
+    self.y = math.round(self.y, p)
+    self.r = math.round(self.r, p)
+end
+function r:round_base(d)
+    self.p = d * math.round(self.p / d)
+    self.y = d * math.round(self.y / d)
+    self.r = d * math.round(self.r / d)
+end
+function r:rounded_zero()
+    return t(math.floor(self.p + 0.5), math.floor(self.y + 0.5), math.floor(self.r + 0.5))
+end
+function r:rounded(p)
+    return t(math.round(self.p, p), math.round(self.y, p), math.round(self.r, p))
+end
+function r:rounded_base(d)
+    return t(d * math.round(self.p / d), d * math.round(self.y / d), d * math.round(self.r / d))
+end
+local C = {}
+local D = {__index = C}
+D.__call = function(E, F, v, G)
+    F = F or E.x
+    v = v or E.y
+    G = G or E.z
+    E.x = F
+    E.y = v
+    E.z = G
+end
+local function E(H, y, I)
+    return setmetatable({x = H and H or 0, y = y and y or 0, z = I and I or 0}, D)
+end
+function C:set(F, v, G)
+    F = F or self.x
+    v = v or self.y
+    G = G or self.z
+    self.x = F
+    self.y = v
+    self.z = G
+end
+function C:offset(J, K, L)
+    J = J or 0
+    K = K or 0
+    L = L or 0
+    self.x = self.x + J
+    self.y = self.y + K
+    self.z = self.z + L
+end
+function C:clone()
+    return setmetatable({x = self.x, y = self.y, z = self.z}, D)
+end
+function C:clone_offset(J, K, L)
+    J = J or 0
+    K = K or 0
+    L = L or 0
+    return setmetatable({x = self.x + J, y = self.y + K, z = self.z + L}, D)
+end
+function C:clone_set(F, v, G)
+    F = F or self.x
+    v = v or self.y
+    G = G or self.z
+    return E(F, v, G)
+end
+function C:unpack()
+    return self.x, self.y, self.z
+end
+function C:nullify()
+    self.x = 0
+    self.y = 0
+    self.z = 0
+end
+function D.__tostring(A)
+    return string.format("%s, %s, %s", A.x, A.y, A.z)
+end
+function D.__concat(A)
+    return string.format("%s, %s, %s", A.x, A.y, A.z)
+end
+function D.__eq(A, B)
+    return A.x == B.x and A.y == B.y and A.z == B.z
+end
+function D.__lt(A, B)
+    if type(A) == "number" then
+        return A < B.x or A < B.y or A < B.z
+    end
+    if type(B) == "number" then
+        return A.x < B or A.y < B or A.z < B
+    end
+    return A.x < B.x or A.y < B.y or A.z < B.z
+end
+function D.__le(A, B)
+    if type(A) == "number" then
+        return A <= B.x or A <= B.y or A <= B.z
+    end
+    if type(B) == "number" then
+        return A.x <= B or A.y <= B or A.z <= B
+    end
+    return A.x <= B.x or A.y <= B.y or A.z <= B.z
+end
+function D.__add(A, B)
+    if type(A) == "number" then
+        return E(A + B.x, A + B.y, A + B.z)
+    end
+    if type(B) == "number" then
+        return E(A.x + B, A.y + B, A.z + B)
+    end
+    return E(A.x + B.x, A.y + B.y, A.z + B.z)
+end
+function D.__sub(A, B)
+    if type(A) == "number" then
+        return E(A - B.x, A - B.y, A - B.z)
+    end
+    if type(B) == "number" then
+        return E(A.x - B, A.y - B, A.z - B)
+    end
+    return E(A.x - B.x, A.y - B.y, A.z - B.z)
+end
+function D.__mul(A, B)
+    if type(A) == "number" then
+        return E(A * B.x, A * B.y, A * B.z)
+    end
+    if type(B) == "number" then
+        return E(A.x * B, A.y * B, A.z * B)
+    end
+    return E(A.x * B.x, A.y * B.y, A.z * B.z)
+end
+function D.__div(A, B)
+    if type(A) == "number" then
+        return E(A / B.x, A / B.y, A / B.z)
+    end
+    if type(B) == "number" then
+        return E(A.x / B, A.y / B, A.z / B)
+    end
+    return E(A.x / B.x, A.y / B.y, A.z / B.z)
+end
+function D.__pow(A, B)
+    if type(A) == "number" then
+        return E(math.pow(A, B.x), math.pow(A, B.y), math.pow(A, B.z))
+    end
+    if type(B) == "number" then
+        return E(math.pow(A.x, B), math.pow(A.y, B), math.pow(A.z, B))
+    end
+    return E(math.pow(A.x, B.x), math.pow(A.y, B.y), math.pow(A.z, B.z))
+end
+function D.__mod(A, B)
+    if type(A) == "number" then
+        return E(A % B.x, A % B.y, A % B.z)
+    end
+    if type(B) == "number" then
+        return E(A.x % B, A.y % B, A.z % B)
+    end
+    return E(A.x % B.x, A.y % B.y, A.z % B.z)
+end
+function D.__unm(A)
+    return E(-A.x, -A.y, -A.z)
+end
+function C:length2_squared()
+    return self.x * self.x + self.y * self.y
+end
+function C:length2()
+    return math.sqrt(self:length2_squared())
+end
+function C:length_squared()
+    return self.x * self.x + self.y * self.y + self.z * self.z
+end
+function C:length()
+    return math.sqrt(self:length_squared())
+end
+function C:dot_product(M)
+    return self.x * M.x + self.y * M.y + self.z * M.z
+end
+function C:cross_product(M)
+    return E(self.y * M.z - self.z * M.y, self.z * M.x - self.x * M.z, self.x * M.y - self.y * M.x)
+end
+function C:distance2(N)
+    return (N - self):length2()
+end
+function C:distance(N)
+    return (N - self):length()
+end
+function C:distance_x(N)
+    return math.abs(self.x - N.x)
+end
+function C:distance_y(N)
+    return math.abs(self.y - N.y)
+end
+function C:distance_z(N)
+    return math.abs(self.z - N.z)
+end
+function C:in_range(N, O)
+    return self:distance(N) <= O
+end
+function C:round_zero()
+    self.x = math.floor(self.x + 0.5)
+    self.y = math.floor(self.y + 0.5)
+    self.z = math.floor(self.z + 0.5)
+end
+function C:round(p)
+    self.x = math.round(self.x, p)
+    self.y = math.round(self.y, p)
+    self.z = math.round(self.z, p)
+end
+function C:round_base(d)
+    self.x = d * math.round(self.x / d)
+    self.y = d * math.round(self.y / d)
+    self.z = d * math.round(self.z / d)
+end
+function C:rounded_zero()
+    return E(math.floor(self.x + 0.5), math.floor(self.y + 0.5), math.floor(self.z + 0.5))
+end
+function C:rounded(p)
+    return E(math.round(self.x, p), math.round(self.y, p), math.round(self.z, p))
+end
+function C:rounded_base(d)
+    return E(d * math.round(self.x / d), d * math.round(self.y / d), d * math.round(self.z / d))
+end
+function C:normalize()
+    local P = self:length()
+    if P ~= 0 then
+        self.x = self.x / P
+        self.y = self.y / P
+        self.z = self.z / P
+    else
+        self.x = 0
+        self.y = 0
+        self.z = 1
+    end
+end
+function C:normalized_length()
+    return self:length()
+end
+function C:normalized()
+    local P = self:length()
+    if P ~= 0 then
+        return E(self.x / P, self.y / P, self.z / P)
+    else
+        return E(0, 0, 1)
+    end
+end
+function C:to_screen(Q)
+    local H, y = renderer.world_to_screen(self.x, self.y, self.z)
+    if H == nil or y == nil then
+        return nil
+    end
+    if Q == true then
+        local R, S = client.screen_size()
+        if H < 0 or H > R or y < 0 or y > S then
+            return nil
+        end
+    end
+    return E(H, y)
+end
+function C:magnitude()
+    return math.sqrt(math.pow(self.x, 2) + math.pow(self.y, 2) + math.pow(self.z, 2))
+end
+function C:angle_to(N)
+    local T = E(N.x - self.x, N.y - self.y, N.z - self.z)
+    local U = math.deg(math.atan2(T.y, T.x))
+    local V = math.sqrt(T.x * T.x + T.y * T.y)
+    local W = math.deg(math.atan2(-T.z, V))
+    return t(W, U)
+end
+function C:lerp(N, X)
+    return self + (N - self) * X
+end
+local function Y(Z, N, _, a0)
+    return E((Z.x * a0 + N.x * _) / (_ + a0), (Z.y * a0 + N.y * _) / (_ + a0), (Z.z * a0 + N.z * _) / (_ + a0))
+end
+function C:trace_line_to(N, a1)
+    a1 = a1 or -1
+    return client.trace_line(a1, self.x, self.y, self.z, N.x, N.y, N.z)
+end
+function C:trace_line_impact(N, a1)
+    a1 = a1 or -1
+    local a2, a3 = client.trace_line(a1, self.x, self.y, self.z, N.x, N.y, N.z)
+    local a4 = self:lerp(N, a2)
+    return a2, a3, a4
+end
+function C:trace_line_skip_indices(N, a5, callback)
+    a5 = a5 or 10
+    local a2, a3 = 0, -1
+    local a4 = self
+    local a6 = 0
+    while a5 >= a6 and a2 < 1 and (a3 > -1 and callback(a3) or a4 == self) do
+        a2, a3, a4 = a4:trace_line_impact(N, a3)
+        a6 = a6 + 1
+    end
+    return self:distance(a4) / self:distance(N), a3, a4
+end
+function C:trace_line_skip_class(N, a1, a7)
+    local a8 = function(a9, aa)
+        local ab = entity.get_classname(a9) or ""
+        for a6 in 1, #aa do
+            if ab == aa[a6] then
+                return true
+            end
+        end
+        return false
+    end
+    local ac = self:angle_to(N)
+    local ad = ac:to_forward_vector()
+    local ae = self
+    while true do
+        local a2, af = ae:trace_line_to(N)
+        if a2 == 1 and af == -1 then
+            return 1, -1
+        else
+            if a8(af, a1) then
+                ae = Y(self, N, a2, 1 - a2)
+                ae = ae + ad * a7
+            else
+                return a2, af, self:lerp(N, a2)
+            end
+        end
+    end
+end
+function C:trace_bullet_to(N, a3)
+    return client.trace_bullet(a3, self.x, self.y, self.z, N.x, N.y, N.z)
+end
+function C:closest_ray_point(ag, ah)
+    local ai = self - ag
+    local ad = ah - ag
+    local P = ad:length()
+    ad:normalize()
+    local aj = ai:dot_product(ad)
+    if aj < 0 then
+        return ag
+    elseif aj > P then
+        return ah
+    end
+    return ag + ad * aj
+end
+function C:ray_divided(ah, ak)
+    return (self * ak + ah) / (1 + ak)
+end
+function C:ray_segmented(ah, al)
+    local am = {}
+    for a6 = 0, al do
+        am[a6] = Y(self, ah, a6, al - a6)
+    end
+    return am
+end
+function C:ray(ah, an)
+    an = an or 128
+    local al = {}
+    local ao = self:distance(ah) / an
+    local t = self:angle_to(ah)
+    local ad = t:to_forward_vector()
+    for a6 = 1, an do
+        table.insert(al, self + ad * ao * a6)
+    end
+    local ap = E(0, 0, 0)
+    local aq = E(0, 0, 0)
+    local ar = false
+    local as = false
+    for a6 = 1, #al do
+        ap = al[a6]:to_screen()
+        if ap ~= nil then
+            ar = true
+            break
+        end
+    end
+    for a6 = #al, 1, -1 do
+        aq = al[a6]:to_screen()
+        if aq ~= nil then
+            as = true
+            break
+        end
+    end
+    if ar and as then
+        return ap, aq
+    end
+    return nil
+end
+function C:ray_intersects_smoke(ah)
+    return line_goes_through_smoke(self.x, self.y, self.z, ah.x, ah.y, ah.z, 1)
+end
+function C:inside_polygon2(at)
+    local au = false
+    local av = #at
+    local aw = av
+    for a6 = 1, av do
+        if at[a6].y < self.y and at[aw].y >= self.y or at[aw].y < self.y and at[a6].y >= self.y then
+            if at[a6].x + (self.y - at[a6].y) / (at[aw].y - at[a6].y) * (at[aw].x - at[a6].x) < self.x then
+                au = not au
+            end
+        end
+        aw = a6
+    end
+    return au
+end
+function C:draw_circle(ax, z, ay, M, az, aA, aB, aC, aD, X)
+    local aA = aA ~= nil and aA or 3
+    local aB = aB ~= nil and aB or 1
+    local aC = aC ~= nil and aC or false
+    local aD = aD ~= nil and aD or 0
+    local X = X ~= nil and X or 1
+    local aE, aF
+    for aG = aD, X * 360, aA do
+        local aH = math.rad(aG)
+        local aI, aJ, aK = ax * math.cos(aH) + self.x, ax * math.sin(aH) + self.y, self.z
+        local aL, aM = renderer.world_to_screen(aI, aJ, aK)
+        if aL ~= nil and aE ~= nil then
+            for a6 = 1, aB do
+                local a6 = a6 - 1
+                renderer.line(aL, aM - a6, aE, aF - a6, z, ay, M, az)
+            end
+            if aC then
+                local aN = az / 255 * 160
+                renderer.line(aL, aM - aB, aE, aF - aB, 16, 16, 16, aN)
+                renderer.line(aL, aM + 1, aE, aF + 1, 16, 16, 16, aN)
+            end
+        end
+        aE, aF = aL, aM
+    end
+end
+function C:min(aO)
+    self.x = math.min(aO, self.x)
+    self.y = math.min(aO, self.y)
+    self.z = math.min(aO, self.z)
+end
+function C:max(aO)
+    self.x = math.max(aO, self.x)
+    self.y = math.max(aO, self.y)
+    self.z = math.max(aO, self.z)
+end
+function C:minned(aO)
+    return E(math.min(aO, self.x), math.min(aO, self.y), math.min(aO, self.z))
+end
+function C:maxed(aO)
+    return E(math.max(aO, self.x), math.max(aO, self.y), math.max(aO, self.z))
+end
+function r:to_forward_vector()
+    local aP = function(aQ)
+        return aQ * math.pi / 180
+    end
+    local aR = math.sin(aP(self.p))
+    local aS = math.cos(aP(self.p))
+    local aT = math.sin(aP(self.y))
+    local aU = math.cos(aP(self.y))
+    return E(aS * aU, aS * aT, -aR)
+end
+function r:to_up_vector()
+    local aP = function(aQ)
+        return aQ * math.pi / 180
+    end
+    local aR = math.sin(aP(self.p))
+    local aS = math.cos(aP(self.p))
+    local aT = math.sin(aP(self.y))
+    local aU = math.cos(aP(self.y))
+    local aV = math.sin(aP(self.r))
+    local aW = math.cos(aP(self.r))
+    return E(aW * aR * aU + aV * aT, aW * aR * aT + aV * aU * -1, aW * aS)
+end
+function r:to_right_vector()
+    local aP = function(aQ)
+        return aQ * math.pi / 180
+    end
+    local aR = math.sin(aP(self.p))
+    local aS = math.cos(aP(self.p))
+    local aT = math.sin(aP(self.y))
+    local aU = math.cos(aP(self.y))
+    local aV = math.sin(aP(self.r))
+    local aW = math.cos(aP(self.r))
+    return E(aV * aR * aU * -1 + aW * aT, aV * aR * aT * -1 + -1 * aW * aU, -1 * aV * aS)
+end
+function r:to_backward_vector()
+    local aP = function(aQ)
+        return aQ * math.pi / 180
+    end
+    local aR = math.sin(aP(self.p))
+    local aS = math.cos(aP(self.p))
+    local aT = math.sin(aP(self.y))
+    local aU = math.cos(aP(self.y))
+    return -E(aS * aU, aS * aT, -aR)
+end
+function r:to_left_vector()
+    local aP = function(aQ)
+        return aQ * math.pi / 180
+    end
+    local aR = math.sin(aP(self.p))
+    local aS = math.cos(aP(self.p))
+    local aT = math.sin(aP(self.y))
+    local aU = math.cos(aP(self.y))
+    local aV = math.sin(aP(self.r))
+    local aW = math.cos(aP(self.r))
+    return -E(aV * aR * aU * -1 + aW * aT, aV * aR * aT * -1 + -1 * aW * aU, -1 * aV * aS)
+end
+function r:to_down_vector()
+    local aP = function(aQ)
+        return aQ * math.pi / 180
+    end
+    local aR = math.sin(aP(self.p))
+    local aS = math.cos(aP(self.p))
+    local aT = math.sin(aP(self.y))
+    local aU = math.cos(aP(self.y))
+    local aV = math.sin(aP(self.r))
+    local aW = math.cos(aP(self.r))
+    return -E(aW * aR * aU + aV * aT, aW * aR * aT + aV * aU * -1, aW * aS)
+end
+function r:fov_to(Z, N)
+    local aX = self:to_forward_vector()
+    local aY = (N - Z):normalized()
+    local aZ = math.acos(aX:dot_product(aY) / aY:length())
+    return math.max(0.0, math.deg(aZ))
+end
+function r:bearing(p)
+    local U = 180 - self.y + 90
+    local aQ = (U % 360 + 360) % 360
+    aQ = aQ > 180 and aQ - 360 or aQ
+    return math.round(aQ + 180, p)
+end
+function r:start_degrees()
+    local U = self.y
+    local aQ = (U % 360 + 360) % 360
+    aQ = aQ > 180 and aQ - 360 or aQ
+    return aQ + 180
+end
+function r:normalize()
+    local W = self.p
+    if W < -89 then
+        W = -89
+    elseif W > 89 then
+        W = 89
+    end
+    local U = self.y
+    while U > 180 do
+        U = U - 360
+    end
+    while U < -180 do
+        U = U + 360
+    end
+    return t(W, U, 0)
+end
+function r:normalized()
+    if self.p < -89 then
+        self.p = -89
+    elseif self.p > 89 then
+        self.p = 89
+    end
+    local U = self.y
+    while U > 180 do
+        U = U - 360
+    end
+    while U < -180 do
+        U = U + 360
+    end
+    self.y = U
+    self.r = 0
+end
+function C.draw_polygon(at, z, ay, M, az, al)
+    for a_, b0 in pairs(at) do
+        local b1 = at[a_ + 1]
+        if b1 == nil then
+            b1 = at[1]
+        end
+        local b2, b3 = b0:ray(b1, al or 64)
+        if b2 ~= nil and b3 ~= nil then
+            renderer.line(b2.x, b2.y, b3.x, b3.y, z, ay, M, az)
+        end
+    end
+end
+function C.eye_position(a3)
+    local b4 = E(entity.get_prop(a3, "m_vecOrigin", 3))
+    local b5, b5, b6 = entity.get_prop(a3, "m_vecViewOffset")
+    local b7 = entity.get_prop(a3, "m_flDuckAmount")
+    b4.z = b4.z + b6 - b7 * 16
+    return b4
+end
+local b8 = {}
+local b9, ba, bb, bc, bd = table.insert, table.concat, string.rep, string.len, string.sub
+local be, bf, bg = math.max, math.floor, math.ceil
+local function bh(bi)
+    local b5, bj = string.gsub(tostring(bi), "[^\128-\193]", "")
+    return bj
+end
+local bk = {
+    ["ASCII"] = {"-", "|", "+"},
+    ["Compact"] = {"-", " ", " ", " ", " ", " ", " ", " "},
+    ["ASCII (Girder)"] = {"=", "||", "//", "[]", "\\\\", "|]", "[]", "[|", "\\\\", "[]", "//"},
+    ["Unicode"] = {"鈺怽", "鈺慭", "鈺擻", "鈺", "鈺梊", "鈺燶", "鈺琝", "鈺", "鈺歕", "鈺‐", "鈺漒"},
+    ["Unicode (Single Line)"] = {"鈹€", "鈹俓", "鈹孿", "鈹琝", "鈹怽", "鈹淺", "鈹糪", "鈹", "鈹擻", "鈹碶", "鈹榎"},
+    ["Markdown (Github)"] = {"-", "|", "|"}
+}
+for b5, bl in pairs(bk) do
+    if #bl == 3 then
+        for aw = 4, 11 do
+            bl[aw] = bl[3]
+        end
+    end
+end
+local function bm(bn, aB)
+    bn = bd(bn, 1, aB)
+    local P = bh(bn)
+    return bb(" ", bf(aB / 2 - P / 2)) .. bn .. bb(" ", bg(aB / 2 - P / 2))
+end
+local function bo(bn, aB)
+    bn = bd(bn, 1, aB)
+    return bn .. bb(" ", aB - bh(bn))
+end
+function b8.generate_table(bp, bq, br)
+    if type(br) == "string" or br == nil then
+        br = {style = br or "ASCII"}
+    end
+    if br.top_line == nil then
+        br.top_line = br.style ~= "Markdown (Github)"
+    end
+    if br.bottom_line == nil then
+        br.bottom_line = br.style ~= "Markdown (Github)"
+    end
+    if br.header_seperator_line == nil then
+        br.header_seperator_line = true
+    end
+    local bs = bk[br.style] or bk["ASCII"]
+    local bt, bu, bv = {}, {}, 0
+    local bw = bq ~= nil and #bq > 0
+    if bw then
+        for a6 = 1, #bq do
+            bu[a6] = bh(bq[a6]) + 2
+        end
+        bv = #bq
+    else
+        for a6 = 1, #bp do
+            bv = be(bv, #bp[a6])
+        end
+    end
+    for a6 = 1, #bp do
+        local bx = bp[a6]
+        for by = 1, bv do
+            bu[by] = be(bu[by] or 2, bh(bx[by]) + 2)
+        end
+    end
+    local bz = {}
+    for a6 = 1, bv do
+        b9(bz, bb(bs[1], bu[a6]))
+    end
+    if br.top_line then
+        b9(bt, bs[3] .. ba(bz, bs[4]) .. bs[5])
+    end
+    if bw then
+        local bA = {}
+        for a6 = 1, bv do
+            bA[a6] = bm(bq[a6], bu[a6])
+        end
+        b9(bt, bs[2] .. ba(bA, bs[2]) .. bs[2])
+        if br.header_seperator_line then
+            b9(bt, bs[6] .. ba(bz, bs[7]) .. bs[8])
+        end
+    end
+    for a6 = 1, #bp do
+        local bx, bB = bp[a6], {}
+        if #bx == 0 then
+            b9(bt, bs[6] .. ba(bz, bs[7]) .. bs[8])
+        else
+            for aw = 1, bv do
+                local bC = br.value_justify == "center" and bm(bx[aw] or "", bu[aw] - 2) or bo(bx[aw] or "", bu[aw] - 2)
+                bB[aw] = " " .. bC .. " "
+            end
+            b9(bt, bs[2] .. ba(bB, bs[2]) .. bs[2])
+        end
+    end
+    if br.bottom_line and bs[9] then
+        b9(bt, bs[9] .. ba(bz, bs[10]) .. bs[11])
+    end
+    return ba(bt, "\n")
+end
+local bD =
+    setmetatable(
+    b8,
+    {__call = function(b5, ...)
+            return b8.generate_table(...)
+        end}
+)
+local bE = function()
+    local bF, a =
+        pcall(
+        function()
+            genesis_error()
+        end
+    )
+    return not bF and a:match("\\(.*):(.*):") or nil
+end
+local bG = function(bn)
+    client.color_log(83, 126, 242, string.format("[%s]\0", "genesis"))
+    client.color_log(163, 163, 163, " ", bn)
+end
+local bH = function(bI)
+    local bj = 0
+    for b5, b5 in pairs(bI) do
+        bj = bj + 1
+    end
+    return bj
+end
+if package.plugin_tbc ~= nil then
+    client.color_log(255, 0, 0, " - \0")
+    client.color_log(255, 255, 255, "Failed to load \0")
+    client.color_log(255, 0, 0, "[script is already active]")
+    error()
+end
+speedboostop = {"speed boost", "fire on ticks"}
+safeoptions = {"dynamic ticks", "fast fire"}
+local bJ = {
+    version = entity.get_player_name(entity.get_local_player()),
+    debug = false,
+    reference = {},
+    interface = {
+        ui.new_checkbox("RAGE", "Other", "Doubletap speed"),
+        master_watermark_col = ui.new_color_picker("RAGE", "Other", "watermark_color", 100, 155, 255, 255),
+        ui.new_slider("RAGE", "Other", "Tickbase", 16, 20, 18),
+        ui.new_slider("RAGE", "Other", "States", 1, 2, 2),
+        ui.new_multiselect("RAGE", "Other", "Controller\ndt", safeoptions),
+        ui.new_multiselect("RAGE", "Other", "unsafe\ndt", speedboostop),
+        ui.new_checkbox("RAGE", "Other", "[b] debug logs"),
+        ui.new_checkbox("RAGE", "Other", "[b] log debug tickbase")
+    }
+}
+function bJ:ui(bK)
+    local bL = self.reference[bK]
+    if bL == nil then
+        error(string.format("unknown reference %s", bK))
+    end
+    return {get_ids = function()
+            return bL[1]
+        end, get_reffer = function()
+            return bL[2]
+        end, call = function()
+            local bM = {}
+            for a6 = 1, #bL[1] do
+                bM[#bM + 1] = ui.get(bL[1][a6])
+            end
+            return unpack(bM)
+        end, set = function(b5, aO, a9, bN)
+            local a9 = a9 or 1
+            return bN == true and ({pcall(ui.set, bL[1][a9], aO)})[1] or ui.set(bL[1][a9], aO)
+        end, set_cache = function(b5, a9, bO, bP)
+            local a9 = a9 or 1
+            if package._gcache == nil then
+                package._gcache = {}
+            end
+            local bK, bQ = tostring(bL[1][a9]), ui.get(bL[1][a9])
+            local bR = type(bQ)
+            local b5, bS = ui.get(bL[1][a9])
+            local bT = bS or (bR == "boolean" and tostring(bQ) or bQ)
+            package._gcache[bK] = package._gcache[bK] or bT
+            local bU = {[0] = "always on", [1] = "on hotkey", [2] = "toggle", [3] = "off hotkey"}
+            if bO then
+                ui.set(bL[1][a9], bS ~= nil and bU[bP] or bP)
+            else
+                if package._gcache[bK] ~= nil then
+                    local bV = package._gcache[bK]
+                    if bR == "boolean" then
+                        if bV == "true" then
+                            bV = true
+                        end
+                        if bV == "false" then
+                            bV = false
+                        end
+                    end
+                    ui.set(bL[1][a9], bS ~= nil and bU[bV] or bV)
+                    package._gcache[bK] = nil
+                end
+            end
+        end, set_visible = function(b5, aO, a9)
+            local a9 = a9 or 1
+            ui.set_visible(bL[1][a9], aO)
+        end}
+end
+function bJ:ui_register(bK, bW)
+    local bX = {}
+    local bY = {pcall(ui.reference, unpack(bW))}
+    if bY[1] == false then
+        error(string.format("%s cannot be defined (%s)", bK, bY[2]))
+    end
+    if self.reference[bK] ~= nil then
+        error(string.format("%s is already taken in metatable", bK))
+    end
+    for a6 = 2, #bY do
+        bX[#bX + 1] = bY[a6]
+    end
+    self.reference[bK] = {bX, bW}
+    return self:ui(bK)
+end
+local bZ = function(M)
+    local by = function(b_, c0)
+        local c1 = {}
+        for ay in pairs(b_) do
+            table.insert(c1, ay)
+        end
+        table.sort(c1, c0)
+        local c2 = 0
+        local a6 = function()
+            c2 = c2 + 1
+            if c1[c2] == nil then
+                return nil
+            else
+                return c1[c2], b_[c1[c2]]
+            end
+        end
+        return a6
+    end
+    local aw = {get = function(c)
+            local c3, _ = 0, {}
+            for a0, c4 in by(package.cnotes) do
+                if c4 == true then
+                    c3 = c3 + 1
+                    _[#_ + 1] = {a0, c3}
+                end
+            end
+            for x = 1, #_ do
+                if _[x][1] == M then
+                    return c(_[x][2] - 1)
+                end
+            end
+        end, set_state = function(c5)
+            package.cnotes[M] = c5
+            table.sort(package.cnotes)
+        end, unset = function()
+            client.unset_event_callback("shutdown", callback)
+        end}
+    client.set_event_callback(
+        "shutdown",
+        function()
+            if package.cnotes[M] ~= nil then
+                package.cnotes[M] = nil
+            end
+        end
+    )
+    if package.cnotes == nil then
+        package.cnotes = {}
+    end
+    return aw
+end
+local c6 = ui.reference("RAGE", "Other", "Duck peek assist")
+local c7, c8 = ui.reference("RAGE", "Aimbot", "Enabled")
+local c9, ca = ui.reference("RAGE", "Other", "Double tap")
+local cb = function(cc, table)
+    for a6 = 1, #table do
+        if cc - table[a6] <= 0 then
+            return a6, cc
+        end
+        cc = cc - table[a6]
+    end
+end
+local cd = function(bn)
+    client.color_log(83, 126, 242, "[genesis]\0")
+    client.color_log(163, 163, 163, " ", bn)
+end
+local ce = {dis_tag = "Crack God", status = "beta"}
+client.set_event_callback(
+    "paint_ui",
+    function()
+        username_ = ce.dis_name
+        if ce.dis_role then
+            cd(string.format("welcome, %s#%s | version: %s", username_, ce.dis_tag, f))
+            if not playsound then
+                client.exec("play UI/competitive_accept_beep.wav")
+                playsound = true
+            end
+            debug_u = ce.status == "beta" or ce.status == "debug"
+            bJ.debug = debug_u
+            beta_access = debug_u and " (" .. ce.status .. ")" or ""
+        end
+    end
+)
+local function cf(table, cg)
+    for a6 = 1, #table do
+        if table[a6] == cg then
+            return true
+        end
+    end
+    return false
+end
+local ch = {}
+local ci, cj, ck = false, false, false
+local cl = {}
+local cm = function(M, by, b_)
+    local c0 = function(c1, ay, c2)
+        local a6 = {[0] = "always on", [1] = "on hotkey", [2] = "toggle", [3] = "off hotkey"}
+        local aw = tostring(c1)
+        local c = ui.get(c1)
+        local c3 = type(c)
+        local _, a0 = ui.get(c1)
+        local c4 = a0 ~= nil and a0 or (c3 == "boolean" and tostring(c) or c)
+        cl[aw] = cl[aw] or c4
+        if ay then
+            ui.set(c1, a0 ~= nil and a6[c2] or c2)
+        else
+            if cl[aw] ~= nil then
+                local x = cl[aw]
+                if c3 == "boolean" then
+                    if x == "true" then
+                        x = true
+                    end
+                    if x == "false" then
+                        x = false
+                    end
+                end
+                ui.set(c1, a0 ~= nil and a6[x] or x)
+                cl[aw] = nil
+            end
+        end
+    end
+    if type(M) == "table" then
+        for c5, z in pairs(M) do
+            c0(c5, z[1], z[2])
+        end
+    else
+        c0(M, by, b_)
+    end
+end
+local cn = function()
+    local co = bZ "b_tbc.v2"
+    package.plugin_tbc = true
+    local cp = bJ:ui_register("hitchance", {"RAGE", "Aimbot", "Minimum hit chance"})
+    local cq = ui.reference("RAGE", "Aimbot", "Automatic fire")
+    local cr = bJ:ui_register("dt_reserve", {"RAGE", "Other", "Double tap fake lag limit"})
+    local cs = bJ:ui_register("usrcmd_maxpticks", {"MISC", "Settings", "sv_maxusrcmdprocessticks"})
+    local ct = bJ:ui_register("hold_aim", {"MISC", "Settings", "sv_maxusrcmdprocessticks_holdaim"})
+    local cu = bJ:ui_register("double_tap", {"RAGE", "Other", "Double tap"})
+    local cv = bJ:ui_register("double_tap_mode", {"RAGE", "Other", "Double tap mode"})
+    local cw = bJ:ui_register("onshot_aa", {"AA", "Other", "On shot anti-aim"})
+    local cx = bJ:ui_register("lowerbody", {"AA", "Anti-aimbot angles", "Lower body yaw target"})
+    local cy = bJ:ui_register("master_switch", {"RAGE", "Other", "Doubletap speed"})
+    local cz = bJ:ui_register("master_tickbase", {"RAGE", "Other", "Tickbase"})
+    local cA = bJ:ui_register("master_ct_states", {"RAGE", "Other", "States"})
+    local cB = bJ:ui_register("master_ctl", {"RAGE", "Other", "Controller\ndt"})
+    local cC = bJ:ui_register("master_unsafe", {"RAGE", "Other", "unsafe\ndt"})
+    local cD = bJ:ui_register("master_logs", {"RAGE", "Other", "[b] debug logs"})
+    local cE = bJ:ui_register("master_logs_tickbase", {"RAGE", "Other", "[b] log debug tickbase"})
+    local cF = ui.reference("MISC", "Settings", "sv_maxusrcmdprocessticks")
+    local cG, cH, cI, cJ, cK = false, false, false, false, false
+    local cL, b5, cM = pcall(ui.reference, "RAGE", "Other", "Adaptive config")
+    local cN = cvar.cl_clock_correction
+    local cO, cP = 0, 0
+    local cQ = {
+        old_tickbase = 0,
+        old_sim_time = 0,
+        old_command_num = 0,
+        skip_next_differ = false,
+        charged_before = false,
+        did_shift_before = false,
+        can_shift_tickbase = 0,
+        is_cmd_safe = true,
+        last_charge = 0,
+        validate_cmd = cs:call(),
+        lag_state = nil
+    }
+    local cR = {data = {}, shift_time = 0, shift_data = {}}
+    local cS = {speedboost = false, fireonticks = false, hideshot = false}
+    local cT = {}
+    local cU = function(cV)
+        table.insert(cT, cV)
+    end
+    local cW = function()
+        if cQ.lag_state ~= nil then
+            if cf(cB:call(), safeoptions[1]) and not cG and not cH then
+                cu:set(cQ.lag_state)
+                cU({["time"] = globals.realtime(), ["text"] = string.format("reset ticks")})
+            end
+            cQ.lag_state = nil
+        end
+        for a6 in pairs(bJ.reference) do
+            local cX = bJ:ui(a6)
+            for aw = 1, #cX:get_ids() do
+                cX:set_cache(aw, false)
+            end
+        end
+    end
+    local cY = function(c0)
+        local cZ = 0
+        local c_ = false
+        local d0 = entity.get_local_player()
+        local d1 = entity.get_player_weapon(d0)
+        local d2 = entity.get_classname(d1) or ""
+        local d3 = entity.get_prop(d1, "m_iItemDefinitionIndex")
+        local d4 = d3 and bit.band(d3, 0xFFFF) or 0
+        local d5 = function(d0, d1, d6)
+            if d1 == nil then
+                return false
+            end
+            local d7 = entity.get_prop(d0, "m_nTickBase")
+            local d8 = globals.tickinterval() * (d7 - d6)
+            if not cy:call() then
+                return false
+            end
+            if ui.get(c6) then
+                return false
+            end
+            if d8 < entity.get_prop(d0, "m_flNextAttack") then
+                return false
+            end
+            if d8 < entity.get_prop(d1, "m_flNextPrimaryAttack") then
+                return false
+            end
+            return true
+        end
+        if cQ.validate_cmd > 0 then
+            cQ.validate_cmd = cQ.validate_cmd - 1
+            local d9, da = cu:call()
+            if d9 and da then
+                c_ = true
+            end
+        end
+        if cf(cB:call(), safeoptions[1]) and not cG and not cH then
+            cu:set_cache(1, c_, false)
+        end
+        ::db::
+        local dc = d5(d0, d1, 13)
+        local dd = d5(d0, d1, math.abs(-1 - cZ))
+        cj = d5(d0, d1, 13)
+        if dc == true or dd == false and cQ.did_shift_before == true then
+            cZ = 13
+        else
+            cZ = 0
+        end
+        local d7 = entity.get_prop(d0, "m_nTickBase")
+        if cQ.old_tickbase ~= 0 and d7 < cQ.old_tickbase then
+            if cQ.old_tickbase - d7 > 11 then
+                cQ.skip_next_differ = true
+                cQ.charged_before = false
+                cQ.can_shift_tickbase = false
+            end
+        end
+        local de = c0.command_number - cQ.old_command_num
+        if de >= 11 and de <= cs:call() then
+            cQ.can_shift_tickbase = not cQ.skip_next_differ
+            cQ.charged_before = cQ.can_shift_tickbase
+            cQ.last_charge = de + 1
+            cQ.is_cmd_safe = de > 3 and math.abs(cs:call() - de) <= 3
+            cP = math.abs(cs:call() - cQ.last_charge)
+            if bJ.debug and cD:call() and debug_u then
+                bG(string.format("shifting tickbase(螖): %s (%s)", de + 1, cQ.is_cmd_safe and "safe" or "unsafe"))
+            end
+        end
+        if dc == false then
+            cQ.can_shift_tickbase = false
+        else
+            cQ.can_shift_tickbase = cQ.charged_before
+        end
+        cQ.old_tickbase = d7
+        cQ.old_command_num = c0.command_number
+        cQ.skip_next_differ = false
+        cQ.did_shift_before = cZ ~= 0
+        cQ.can_shift_tickbase = cA:call()
+        if cQ.can_shift_tickbase == 0 and cQ.charged_before == true then
+            cQ.can_shift_tickbase = 1
+        end
+        if cQ.can_shift_tickbase == 0 then
+            cQ.last_charge = 0
+        end
+    end
+    local df = function(c0)
+        local dg = false
+        local dh = cR.shift_time == 0
+        if cv:call() == "Offensive" and dh and cQ.can_shift_tickbase == 2 then
+            cR.shift_time = 1
+            cR.data[bH(cR.data) + 1] = {c0.x, c0.y, c0.z}
+            if cG or cH then
+                dg = false
+            else
+                dg = true
+            end
+        else
+            dg = false
+        end
+        if not cS.speedboost then
+            return
+        end
+        cp:set_cache(1, dg, 0)
+    end
+    local di = function(c0)
+        if cQ.lag_state ~= nil then
+            if cf(cB:call(), safeoptions[1]) and not cG and not cH then
+                cu:set(cQ.lag_state)
+                cU({["time"] = globals.realtime(), ["text"] = string.format("resetting tickbase")})
+            end
+            cQ.lag_state = nil
+        end
+        local dj, dk = cw:call()
+        local d9, da = cu:call()
+        local dl = cQ.can_shift_tickbase
+        ::db::
+        local d0 = entity.get_local_player()
+        local dm = d9 and da and cv:call() == "Offensive"
+        local dn = false
+        local dp = false
+        local dq = {entity.get_prop(d0, "m_vecVelocity")}
+        local dr = math.floor(math.sqrt(dq[1] ^ 2 + dq[2] ^ 2 + dq[3] ^ 2) + 0.5)
+        if cR.shift_time > 0 and ci then
+            local ds = c0
+            local dt = cQ.last_charge
+            local du = cR.data[bH(cR.data)]
+            if cy:call() and bH(cR.data) > 0 and du ~= nil then
+                local dv = E(client.eye_position())
+                local dw = E(unpack(du))
+                local dx, dy = dv:trace_bullet_to(dw, d0, true)
+                local dz = dv:angle_to(dw)
+                if cR.shift_time == dt or dt < 1 then
+                    if cf(cB:call(), safeoptions[2]) and not cG and not cH then
+                        c0.pitch = dz.p
+                        c0.yaw = dz.y
+                    end
+                    if dy <= 0 then
+                        c0.in_attack = 0
+                    else
+                        dn = true
+                        dp = true
+                    end
+                end
+            end
+            cR.shift_data[#cR.shift_data + 1] = {
+                cR.shift_time,
+                dl,
+                c0.chokedcommands,
+                entity.get_prop(d0, "m_nTickBase"),
+                globals.tickcount(),
+                "false"
+            }
+            if cR.shift_time ~= 0 and (dp == true or cR.shift_time == dt or dt < 1) then
+                if cQ.is_cmd_safe == false or bJ.debug then
+                    local dA = cR.shift_data[1]
+                    local dB = cR.shift_data[#cR.shift_data]
+                    if cD:call() and debug_u and cE:call() then
+                        bG(
+                            string.format(
+                                "unsafe command(diff %s/%s):\n%s\n",
+                                dB[5] - dB[4],
+                                dB[4] - dA[4],
+                                bD(
+                                    cR.shift_data,
+                                    {"id", "shift state", "choked cmds", "tbase", "tcount", "lag_sent"},
+                                    {style = "Markdown (Github)"}
+                                )
+                            )
+                        )
+                    end
+                end
+                cR.shift_time = 0
+                cR.shift_data = {}
+                cR.data = {}
+            else
+                cR.shift_time = cR.shift_time + 1
+            end
+        end
+        if cR.shift_time == 0 and dn == false and (dm == true and dl == 0 or dr <= 1 and dl == 2) then
+            cQ.lag_state = d9
+            if bH(cR.shift_data) > 0 then
+                cR.shift_data[bH(cR.shift_data)][6] = tostring(d9)
+            end
+        end
+        if cS.fireonticks then
+            local dC = cR.shift_time > 0 or dn
+            local dD = ci and not cG and not cH
+            cp:set_cache(1, dC and dD, 0)
+        end
+        if cQ.lag_state ~= nil then
+            if cf(cB:call(), safeoptions[1]) and not cG and not cH then
+                cu:set(false)
+                cU({["time"] = globals.realtime(), ["text"] = string.format("reset")})
+            end
+        end
+    end
+    local dE = function(c0)
+        if cQ.lag_state ~= nil then
+            if cf(cB:call(), safeoptions[1]) and not cG and not cH then
+                cu:set(cQ.lag_state)
+                cU({["time"] = globals.realtime(), ["text"] = string.format("resetting tickbase")})
+            end
+            cQ.lag_state = nil
+        end
+        cr:set_cache(1, true, 1)
+        cs:set_cache(1, true, cz:call())
+        if ui.get(cF) ~= cz:call() then
+            ui.set(cF, cz:call())
+        end
+    end
+    local dF, dG = 0, 0
+    local dH, dI = client.screen_size()
+    local dJ, dK, dL = dH / 2, dI / 2, false
+    if not dL then
+        dJ, dK = unpack(database.read("dt_watermark_xy") or {dH / 2, dI / 2})
+        dL = true
+    end
+    local function dM()
+        local H, y = ui.mouse_position()
+        local dN, dO = ui.menu_position()
+        local dP, aT = ui.menu_size()
+        local dQ = client.key_state(0x01)
+        local dR = H > dN and H < dN + dP
+        local dS = y > dO and y < dO + aT
+        return dR and dS and dQ and ui.is_menu_open()
+    end
+    local dT = 1
+    local function dU(H, y, dV, z, ay, M, dW, dX, bn)
+        renderer.rectangle(H - 1, y, dV + 2, 21, 17, 17, 17, 150)
+        renderer.gradient(H - 1, y + 21, 1.7, -dX * 21, z, ay, M, 255, z, ay, M, dW, false)
+        renderer.gradient(H + dV, y + 21, 1.7, -dX * 21, z, ay, M, 255, z, ay, M, dW, false)
+        renderer.gradient(H - 1, y + 21, dX * dV / 2 + 1.5, 1.7, z, ay, M, 255, z, ay, M, dW, true)
+        renderer.gradient(H + dV + 1, y + 21, -dX * dV / 2 - 1, 1.7, z, ay, M, 255, z, ay, M, dW, true)
+        renderer.gradient(H + dV / 2, y, -dX * dV / 2 - 1, 1.7, z, ay, M, 255, z, ay, M, dW, true)
+        renderer.gradient(H + dV / 2, y, dX * dV / 2 + 1, 1.7, z, ay, M, 255, z, ay, M, dW, true)
+        renderer.text(H + 3, y + 4, 255, 255, 255, 255, "", 0, bn)
+    end
+    local dY = 0
+    local function dZ(H, y, dV, z, ay, M, dW, dX, bn)
+        renderer.rectangle(H - dV + 6, y, dV - 2 + 2, 21, 17, 17, 17, 150)
+        renderer.gradient(H - dV + 6, y + 21, 1.7, -dX * 21, z, ay, M, 255, z, ay, M, dW, false)
+        renderer.gradient(H + 6, y + 21, 1.7, -dX * 21, z, ay, M, 255, z, ay, M, dW, false)
+        renderer.gradient(H - dV + 6, y + 21, dX * dV / 2 + 0.5, 1.7, z, ay, M, 255, z, ay, M, dW, true)
+        renderer.gradient(H + 7, y + 21, -dX * dV / 2 - 1, 1.7, z, ay, M, 255, z, ay, M, dW, true)
+        renderer.gradient(H - dV / 2 + 6, y, -dX * dV / 2, 1.7, z, ay, M, 255, z, ay, M, dW, true)
+        renderer.gradient(H - dV / 2 + 6, y, dX * dV / 2 + 1, 1.7, z, ay, M, 255, z, ay, M, dW, true)
+        renderer.text(H - dV + 10, y + 4, 255, 255, 255, 255, "", 0, bn)
+        dY = H - dV + 10
+    end
+    local function d_()
+        local e0 = globals.realtime() % 3
+        local dW = math.floor(math.sin(e0 * 4) * (255 / 2 - 1) + 255 / 2)
+        local e1 = (ci and 4 or 6) * globals.frametime()
+        if cG or not entity.is_alive(entity.get_local_player()) then
+            dF = dF + e1
+            if dF > 1 then
+                dF = 1
+            end
+        else
+            if cj then
+                dF = dF + e1
+                if dF > 1 then
+                    dF = 1
+                end
+            else
+                dF = dF - e1
+                if dF <= 0 then
+                    dF = 0
+                end
+            end
+        end
+        local bn, e2, e3 = "", cj and cQ.last_charge or 0, cj and cQ.can_shift_tickbase or 0
+        bn = bn .. string.format("Genesis")
+        if ce.status ~= "default" then
+            bn = bn .. string.format(" [%s]", ce.status)
+        end
+        bn = bn .. string.format(" | %s", username_)
+        if ci and not cG and not cH and entity.is_alive(entity.get_local_player()) then
+            bn = bn .. string.format(" | tickbase: %s/%s", e2, e3)
+            if cQ.is_cmd_safe == false then
+                bn = bn .. string.format(" | safe: %s", cQ.is_cmd_safe)
+            end
+        end
+        local c2, dV = 17, renderer.measure_text("", bn) + 7
+        local R, S = client.screen_size()
+        if ui.is_menu_open() and not dM() then
+            if client.key_state(1) then
+                local e4, e5 = ui.mouse_position()
+                if e4 > dJ and e4 < dJ + dV and e4 < R and (e5 > dK and e5 < dK + c2) then
+                    dJ = e4 - dV / 2
+                    dK = e5 - c2 / 2
+                    database.write("dt_watermark_xy", {dJ, dK})
+                end
+            end
+        end
+        local H, y = dJ, dK
+        local z, ay, M, az = ui.get(bJ.interface.master_watermark_col)
+        if H < dH / 2 then
+            dU(H, y, dV, z, ay, M, dW, dF, bn)
+        else
+            dZ(H + 210, y, dV, z, ay, M, dW, dF, bn)
+        end
+        local e6 = {
+            math.floor(math.sin(globals.realtime() * 2) * 127 + 128),
+            math.floor(math.sin(globals.realtime() * 2 + 2) * 127 + 128),
+            math.floor(math.sin(globals.realtime() * 2 + 4) * 127 + 128)
+        }
+        local d1 = entity.get_player_weapon(entity.get_local_player())
+        local d3 = entity.get_prop(d1, "m_iItemDefinitionIndex")
+        local e7 = d3 and bit.band(d3, 0xFFFF) or 0
+        if e7 == nil or not entity.is_alive(entity.get_local_player()) then
+            return
+        end
+        local e8, e9 = 0, 0
+        bullet = {
+            32,
+            32,
+            '<?xml version="1.0" encoding="utf-8"?><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32"><g><g><path fill="#FFFFFF" d="M5,24.5l5.4,4.3l9.8-13c0.2-0.3,0.5-1.2,0.5-1.2s0.1-0.7,0.5-1.4c0.4-0.7,1.2-1.7,1.2-1.7l-3.7-3.1c0,0-1.6,1.5-1.8,1.7c-0.7,0.7-1.5,1-1.8,1.4S5,24.5,5,24.5z"/><polygon fill="#FFFFFF" points="19.3,7.8 23,10.8 27.9,1.8 26.6,0.7"/><path fill="#FFFFFF" d="M4.4,25.2l5.5,4.4l-0.5,0.5c0,0-2,0-3.7-1.3c-1.9-1.4-1.7-3.1-1.7-3.1L4.4,25.2z"/></g></g></svg>'
+        }
+        local ea = h.get_weapon_icon(e7)
+        local eb = renderer.load_svg(bullet[3], 32 * 0.6, 25 * 0.6)
+        if ea == nil then
+            return
+        end
+        e8 = ea:measure(nil, 14)
+        ea:draw(
+            H < dH / 2 and H + 5 or dY,
+            y + 25,
+            nil,
+            16,
+            255,
+            255,
+            255,
+            cj and cQ.is_cmd_safe == false and ci and dW or 255 or dW,
+            true,
+            "f"
+        )
+        if ci then
+            if e7 == 7 or e7 == 39 or e7 == 16 then
+                dT = 3
+            elseif e7 == 1 or e7 == 30 or e7 == 36 or e7 == 2 or e7 == 4 or e7 == 61 or e7 == 11 or e7 == 38 or e7 == 32 then
+                dT = 2
+            elseif e7 == 34 or e7 == 19 or e7 == 25 or e7 == 35 or e7 == 29 or e7 == 14 or e7 == 28 or e7 == 27 then
+                dT = 5
+            elseif e7 == 33 or e7 == 24 or e7 == 26 or e7 == 17 or e7 == 13 or e7 == 10 or e7 == 60 or e7 == 8 then
+                dT = 4
+            elseif e7 == 9 or e7 == 31 or e7 == 40 then
+                dT = 1
+            end
+        else
+            dT = 1
+        end
+        for ec = 1, dT do
+            local ed = cj
+            if ch[ec] == nil then
+                ch[ec] = 0
+            end
+            if ed and ch[1] < 1 then
+                ch[1] = ch[1] + e1
+                if ch[1] > 1 then
+                    ch[1] = 1
+                end
+            elseif ed and ch[ec] == 1 and ch[ec] < ch[1] then
+                ch[ec] = ch[ec] + e1
+                if ch[ec] > 1 then
+                    ch[ec] = 1
+                end
+            elseif ed and ch[ec - 1] == 1 and ch[ec] < ch[ec - 1] then
+                ch[ec] = ch[ec] + e1
+                if ch[ec] > 1 then
+                    ch[ec] = 1
+                end
+            elseif not ed then
+                if ch[ec] == nil then
+                    ch[ec] = 0
+                end
+                ch[ec] = ch[ec] - e1
+                if ch[ec] <= 0 then
+                    ch[ec] = 0
+                end
+            end
+            local ee = 13 * ec
+            if not cG then
+                renderer.texture(
+                    eb,
+                    H < dH / 2 and H + e8 + ee or dY + e8 + ee,
+                    y + 25,
+                    32 * 0.6,
+                    25 * 0.6,
+                    255,
+                    255,
+                    255,
+                    dF * ch[ec] * 255
+                )
+            end
+        end
+        if bJ.debug then
+            for a9, aO in ipairs(cT) do
+                if globals.realtime() > aO["time"] + 4 or a9 > 5 then
+                    table.remove(cT, a9)
+                    return
+                end
+                renderer.text(
+                    H < dH / 2 and H + e8 + (cG and 25 or 50) or dY + e8 + (cG and 25 or 50),
+                    y + 15 + a9 * 10,
+                    255,
+                    255,
+                    255,
+                    255 * math.max(0, 0 - (globals.curtime() - aO["time"] - 4) / 4),
+                    "",
+                    0,
+                    aO["text"]
+                )
+            end
+        end
+    end
+    local ef = function(eg)
+        co.set_state(false)
+        local e0 = globals.realtime() % 3
+        local dW = math.floor(math.sin(e0 * 4) * (255 / 2 - 1) + 255 / 2)
+        if entity.get_local_player() then
+            d_()
+        end
+        cN:set_int(cy:call() and 0 or 1)
+        if entity.is_alive(entity.get_local_player()) == false or not cy:call() then
+            return cW()
+        end
+        if cf(cC:call(), speedboostop[1]) and cv:call() == "Offensive" and cL and ui.get(b5) and bJ.debug then
+            cS.speedboost = true
+        else
+            cS.speedboost = false
+        end
+        if cf(cC:call(), speedboostop[2]) and cv:call() == "Offensive" and cL and ui.get(b5) and bJ.debug then
+            cS.fireonticks = true
+        else
+            cS.fireonticks = false
+        end
+    end
+    client.set_event_callback(
+        "weapon_fire",
+        function(by)
+            local d0 = entity.get_local_player()
+            local eh = client.userid_to_entindex(by.userid)
+            if d0 == eh and debug_u then
+                if cD:call() then
+                    bG(string.format("fired at %s (%s)", globals.tickcount(), cR.shift_time))
+                end
+                if ci and not cG and not client.key_state(0x01) then
+                    if cR.shift_time > 5 then
+                        cU(
+                            {
+                                ["time"] = globals.realtime(),
+                                ["text"] = string.format(
+                                    "tickbase [%s (delay %s)]",
+                                    math.floor(client.latency() * 1000 + 0.5),
+                                    cR.shift_time
+                                )
+                            }
+                        )
+                    end
+                end
+            end
+        end
+    )
+    local c9 = function()
+        if ui.is_menu_open() then
+            cr:set_visible(not cy:call())
+            allowyes = cy:call()
+            cy:set_visible(true, 1)
+            cB:set_visible(allowyes, 1)
+            cC:set_visible(allowyes and cv:call() == "Offensive" and cL and ui.get(b5) and bJ.debug, 1)
+            cD:set_visible(allowyes and ce.status == "debug" and bJ.debug, 1)
+            cE:set_visible(allowyes and bJ.debug and ce.status == "debug" and cD:call(), 1)
+            cz:set_visible(allowyes, 1)
+            cA:set_visible(allowyes, 1)
+        end
+        ci = ui.get(c9) and ui.get(ca) and not ui.get(c6)
+        if cr:call() ~= 1 and not cy:call() then
+            cr:set_cache(1, true, 1)
+        end
+        if not entity.is_alive(entity.get_local_player()) then
+            return
+        end
+        local d3 = entity.get_prop(entity.get_player_weapon(entity.get_local_player()), "m_iItemDefinitionIndex")
+        local e7 = d3 ~= nil and bit.band(d3, 0xFFFF) or 0
+        if e7 == nil or d3 == nil then
+            return
+        end
+        cG = d3 >= 500 and d3 <= 525 or d3 == 41 or d3 == 42 or d3 == 59 or d3 >= 43 and d3 <= 49
+        cH = d3 == 9 or d3 == 31 or d3 == 40
+        cI = d3 == 11 or d3 == 38
+        cJ = d3 >= 1 and d3 <= 4 or d3 == 30 or d3 == 32 or d3 == 36 or d3 == 61 or d3 == 63
+        cK = d3 == 7 or d3 == 10 or d3 == 13 or d3 == 16 or d3 == 39
+    end
+    client.set_event_callback(
+        "shutdown",
+        function()
+            cr:set_visible(true)
+            cr:set_cache(1, true, 1)
+            ui.set(cF, 16)
+            cN:set_int(1)
+        end
+    )
+    client.set_event_callback("predict_command", cY)
+    client.set_event_callback("setup_command", di)
+    client.set_event_callback("run_command", dE)
+    client.set_event_callback("aim_fire", df)
+    client.set_event_callback("paint_ui", ef)
+    client.set_event_callback("shutdown", cW)
+    client.set_event_callback("paint_ui", c9)
+end
+cn()
