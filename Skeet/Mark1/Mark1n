@@ -31,6 +31,10 @@
   ],
   "Config": [
     {
+      "Name": "MM",
+      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Config/MM"
+    },
+        {
       "Name": "HVH",
       "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Config/HVH"
     }
