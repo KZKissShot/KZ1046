@@ -27,6 +27,18 @@
     {
       "Name": "DT1",
       "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/DT1"
+    },
+    {
+      "Name": "legit_auto_wall",
+      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/legit_auto_wall"
+    },
+    {
+      "Name": "cai_hong_ui",
+      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/cai_hong_ui"
+    },    
+    {
+      "Name": "genshinimpact",
+      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/genshinimpact"
     }
   ],
   "Config": [
@@ -34,7 +46,7 @@
       "Name": "MM",
       "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Config/MM"
     },
-        {
+    {
       "Name": "HVH",
       "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Config/HVH"
     }
