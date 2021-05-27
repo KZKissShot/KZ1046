@@ -35,10 +35,6 @@
     {
       "Name": "cai_hong_ui",
       "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/cai_hong_ui"
-    },    
-    {
-      "Name": "genshinimpact",
-      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/genshinimpact"
     }
   ],
   "Config": [
