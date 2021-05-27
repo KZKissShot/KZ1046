@@ -31,10 +31,6 @@
     {
       "Name": "legit_auto_wall",
       "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/legit_auto_wall"
-    },
-    {
-      "Name": "cai_hong_ui",
-      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/cai_hong_ui"
     }
   ],
   "Config": [
