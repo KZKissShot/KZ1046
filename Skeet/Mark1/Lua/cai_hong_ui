@@ -1,10 +1,10 @@
-ui.new_label("LUA", "B", "o©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤o Menu border o©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤o")
+ui.new_label("LUA", "B", "oÂ©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤o Menu border oÂ©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤o")
 
 local enable = ui.new_checkbox("LUA", "B", "Enable")
 local size = ui.new_slider("LUA", "B", "Border size",  1, 10, 1, true, nil)
 local rfrequ = ui.new_slider("LUA", "B", "Rainbow  frequenz",  1, 100, 1, true, nil, .1)
 
-ui.new_label("LUA", "B", "o©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤o")
+ui.new_label("LUA", "B", "oÂ©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤Â©Â¤o")
 
 local function hsv_to_rgb(h, s, v, a)
     local r, g, b
