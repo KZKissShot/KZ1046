@@ -820,18 +820,18 @@ function b8.generate_table(bp, bq, br)
     return ba(bt, "\n")
 end
 local bD =
-    setmetatable(
-    b8,
-    {__call = function(b5, ...)
+setmetatable(
+        b8,
+        {__call = function(b5, ...)
             return b8.generate_table(...)
         end}
 )
 local bE = function()
     local bF, a =
-        pcall(
-        function()
-            genesis_error()
-        end
+    pcall(
+            function()
+                genesis_error()
+            end
     )
     return not bF and a:match("\\(.*):(.*):") or nil
 end
@@ -875,50 +875,50 @@ function bJ:ui(bK)
         error(string.format("unknown reference %s", bK))
     end
     return {get_ids = function()
-            return bL[1]
-        end, get_reffer = function()
-            return bL[2]
-        end, call = function()
-            local bM = {}
-            for a6 = 1, #bL[1] do
-                bM[#bM + 1] = ui.get(bL[1][a6])
-            end
-            return unpack(bM)
-        end, set = function(b5, aO, a9, bN)
-            local a9 = a9 or 1
-            return bN == true and ({pcall(ui.set, bL[1][a9], aO)})[1] or ui.set(bL[1][a9], aO)
-        end, set_cache = function(b5, a9, bO, bP)
-            local a9 = a9 or 1
-            if package._gcache == nil then
-                package._gcache = {}
-            end
-            local bK, bQ = tostring(bL[1][a9]), ui.get(bL[1][a9])
-            local bR = type(bQ)
-            local b5, bS = ui.get(bL[1][a9])
-            local bT = bS or (bR == "boolean" and tostring(bQ) or bQ)
-            package._gcache[bK] = package._gcache[bK] or bT
-            local bU = {[0] = "always on", [1] = "on hotkey", [2] = "toggle", [3] = "off hotkey"}
-            if bO then
-                ui.set(bL[1][a9], bS ~= nil and bU[bP] or bP)
-            else
-                if package._gcache[bK] ~= nil then
-                    local bV = package._gcache[bK]
-                    if bR == "boolean" then
-                        if bV == "true" then
-                            bV = true
-                        end
-                        if bV == "false" then
-                            bV = false
-                        end
+        return bL[1]
+    end, get_reffer = function()
+        return bL[2]
+    end, call = function()
+        local bM = {}
+        for a6 = 1, #bL[1] do
+            bM[#bM + 1] = ui.get(bL[1][a6])
+        end
+        return unpack(bM)
+    end, set = function(b5, aO, a9, bN)
+        local a9 = a9 or 1
+        return bN == true and ({pcall(ui.set, bL[1][a9], aO)})[1] or ui.set(bL[1][a9], aO)
+    end, set_cache = function(b5, a9, bO, bP)
+        local a9 = a9 or 1
+        if package._gcache == nil then
+            package._gcache = {}
+        end
+        local bK, bQ = tostring(bL[1][a9]), ui.get(bL[1][a9])
+        local bR = type(bQ)
+        local b5, bS = ui.get(bL[1][a9])
+        local bT = bS or (bR == "boolean" and tostring(bQ) or bQ)
+        package._gcache[bK] = package._gcache[bK] or bT
+        local bU = {[0] = "always on", [1] = "on hotkey", [2] = "toggle", [3] = "off hotkey"}
+        if bO then
+            ui.set(bL[1][a9], bS ~= nil and bU[bP] or bP)
+        else
+            if package._gcache[bK] ~= nil then
+                local bV = package._gcache[bK]
+                if bR == "boolean" then
+                    if bV == "true" then
+                        bV = true
                     end
-                    ui.set(bL[1][a9], bS ~= nil and bU[bV] or bV)
-                    package._gcache[bK] = nil
+                    if bV == "false" then
+                        bV = false
+                    end
                 end
+                ui.set(bL[1][a9], bS ~= nil and bU[bV] or bV)
+                package._gcache[bK] = nil
             end
-        end, set_visible = function(b5, aO, a9)
-            local a9 = a9 or 1
-            ui.set_visible(bL[1][a9], aO)
-        end}
+        end
+    end, set_visible = function(b5, aO, a9)
+        local a9 = a9 or 1
+        ui.set_visible(bL[1][a9], aO)
+    end}
 end
 function bJ:ui_register(bK, bW)
     local bX = {}
@@ -954,31 +954,31 @@ local bZ = function(M)
         return a6
     end
     local aw = {get = function(c)
-            local c3, _ = 0, {}
-            for a0, c4 in by(package.cnotes) do
-                if c4 == true then
-                    c3 = c3 + 1
-                    _[#_ + 1] = {a0, c3}
-                end
-            end
-            for x = 1, #_ do
-                if _[x][1] == M then
-                    return c(_[x][2] - 1)
-                end
-            end
-        end, set_state = function(c5)
-            package.cnotes[M] = c5
-            table.sort(package.cnotes)
-        end, unset = function()
-            client.unset_event_callback("shutdown", callback)
-        end}
-    client.set_event_callback(
-        "shutdown",
-        function()
-            if package.cnotes[M] ~= nil then
-                package.cnotes[M] = nil
+        local c3, _ = 0, {}
+        for a0, c4 in by(package.cnotes) do
+            if c4 == true then
+                c3 = c3 + 1
+                _[#_ + 1] = {a0, c3}
             end
         end
+        for x = 1, #_ do
+            if _[x][1] == M then
+                return c(_[x][2] - 1)
+            end
+        end
+    end, set_state = function(c5)
+        package.cnotes[M] = c5
+        table.sort(package.cnotes)
+    end, unset = function()
+        client.unset_event_callback("shutdown", callback)
+    end}
+    client.set_event_callback(
+            "shutdown",
+            function()
+                if package.cnotes[M] ~= nil then
+                    package.cnotes[M] = nil
+                end
+            end
     )
     if package.cnotes == nil then
         package.cnotes = {}
@@ -1002,20 +1002,20 @@ local cd = function(bn)
 end
 local ce = {dis_tag = "Crack God", status = "beta"}
 client.set_event_callback(
-    "paint_ui",
-    function()
-        username_ = ce.dis_name
-        if ce.dis_role then
-            cd(string.format("welcome, %s#%s | version: %s", username_, ce.dis_tag, f))
-            if not playsound then
-                client.exec("play UI/competitive_accept_beep.wav")
-                playsound = true
+        "paint_ui",
+        function()
+            username_ = ce.dis_name
+            if ce.dis_role then
+                cd(string.format("welcome, %s#%s | version: %s", username_, ce.dis_tag, f))
+                if not playsound then
+                    client.exec("play UI/competitive_accept_beep.wav")
+                    playsound = true
+                end
+                debug_u = ce.status == "beta" or ce.status == "debug"
+                bJ.debug = debug_u
+                beta_access = debug_u and " (" .. ce.status .. ")" or ""
             end
-            debug_u = ce.status == "beta" or ce.status == "debug"
-            bJ.debug = debug_u
-            beta_access = debug_u and " (" .. ce.status .. ")" or ""
         end
-    end
 )
 local function cf(table, cg)
     for a6 = 1, #table do
@@ -1074,7 +1074,6 @@ local cn = function()
     local cu = bJ:ui_register("double_tap", {"RAGE", "Other", "Double tap"})
     local cv = bJ:ui_register("double_tap_mode", {"RAGE", "Other", "Double tap mode"})
     local cw = bJ:ui_register("onshot_aa", {"AA", "Other", "On shot anti-aim"})
-    local cx = bJ:ui_register("lowerbody", {"AA", "Anti-aimbot angles", "Lower body yaw target"})
     local cy = bJ:ui_register("master_switch", {"RAGE", "Other", "Doubletap speed"})
     local cz = bJ:ui_register("master_tickbase", {"RAGE", "Other", "Tickbase"})
     local cA = bJ:ui_register("master_ct_states", {"RAGE", "Other", "States"})
@@ -1115,10 +1114,6 @@ local cn = function()
             cQ.lag_state = nil
         end
         for a6 in pairs(bJ.reference) do
-            local cX = bJ:ui(a6)
-            for aw = 1, #cX:get_ids() do
-                cX:set_cache(aw, false)
-            end
         end
     end
     local cY = function(c0)
@@ -1277,16 +1272,16 @@ local cn = function()
                     local dB = cR.shift_data[#cR.shift_data]
                     if cD:call() and debug_u and cE:call() then
                         bG(
-                            string.format(
-                                "unsafe command(diff %s/%s):\n%s\n",
-                                dB[5] - dB[4],
-                                dB[4] - dA[4],
-                                bD(
-                                    cR.shift_data,
-                                    {"id", "shift state", "choked cmds", "tbase", "tcount", "lag_sent"},
-                                    {style = "Markdown (Github)"}
+                                string.format(
+                                        "unsafe command(diff %s/%s):\n%s\n",
+                                        dB[5] - dB[4],
+                                        dB[4] - dA[4],
+                                        bD(
+                                                cR.shift_data,
+                                                {"id", "shift state", "choked cmds", "tbase", "tcount", "lag_sent"},
+                                                {style = "Markdown (Github)"}
+                                        )
                                 )
-                            )
                         )
                     end
                 end
@@ -1445,16 +1440,16 @@ local cn = function()
         end
         e8 = ea:measure(nil, 14)
         ea:draw(
-            H < dH / 2 and H + 5 or dY,
-            y + 25,
-            nil,
-            16,
-            255,
-            255,
-            255,
-            cj and cQ.is_cmd_safe == false and ci and dW or 255 or dW,
-            true,
-            "f"
+                H < dH / 2 and H + 5 or dY,
+                y + 25,
+                nil,
+                16,
+                255,
+                255,
+                255,
+                cj and cQ.is_cmd_safe == false and ci and dW or 255 or dW,
+                true,
+                "f"
         )
         if ci then
             if e7 == 7 or e7 == 39 or e7 == 16 then
@@ -1503,15 +1498,15 @@ local cn = function()
             local ee = 13 * ec
             if not cG then
                 renderer.texture(
-                    eb,
-                    H < dH / 2 and H + e8 + ee or dY + e8 + ee,
-                    y + 25,
-                    32 * 0.6,
-                    25 * 0.6,
-                    255,
-                    255,
-                    255,
-                    dF * ch[ec] * 255
+                        eb,
+                        H < dH / 2 and H + e8 + ee or dY + e8 + ee,
+                        y + 25,
+                        32 * 0.6,
+                        25 * 0.6,
+                        255,
+                        255,
+                        255,
+                        dF * ch[ec] * 255
                 )
             end
         end
@@ -1522,15 +1517,15 @@ local cn = function()
                     return
                 end
                 renderer.text(
-                    H < dH / 2 and H + e8 + (cG and 25 or 50) or dY + e8 + (cG and 25 or 50),
-                    y + 15 + a9 * 10,
-                    255,
-                    255,
-                    255,
-                    255 * math.max(0, 0 - (globals.curtime() - aO["time"] - 4) / 4),
-                    "",
-                    0,
-                    aO["text"]
+                        H < dH / 2 and H + e8 + (cG and 25 or 50) or dY + e8 + (cG and 25 or 50),
+                        y + 15 + a9 * 10,
+                        255,
+                        255,
+                        255,
+                        255 * math.max(0, 0 - (globals.curtime() - aO["time"] - 4) / 4),
+                        "",
+                        0,
+                        aO["text"]
                 )
             end
         end
@@ -1558,30 +1553,30 @@ local cn = function()
         end
     end
     client.set_event_callback(
-        "weapon_fire",
-        function(by)
-            local d0 = entity.get_local_player()
-            local eh = client.userid_to_entindex(by.userid)
-            if d0 == eh and debug_u then
-                if cD:call() then
-                    bG(string.format("fired at %s (%s)", globals.tickcount(), cR.shift_time))
-                end
-                if ci and not cG and not client.key_state(0x01) then
-                    if cR.shift_time > 5 then
-                        cU(
-                            {
-                                ["time"] = globals.realtime(),
-                                ["text"] = string.format(
-                                    "tickbase [%s (delay %s)]",
-                                    math.floor(client.latency() * 1000 + 0.5),
-                                    cR.shift_time
-                                )
-                            }
-                        )
+            "weapon_fire",
+            function(by)
+                local d0 = entity.get_local_player()
+                local eh = client.userid_to_entindex(by.userid)
+                if d0 == eh and debug_u then
+                    if cD:call() then
+                        bG(string.format("fired at %s (%s)", globals.tickcount(), cR.shift_time))
+                    end
+                    if ci and not cG and not client.key_state(0x01) then
+                        if cR.shift_time > 5 then
+                            cU(
+                                    {
+                                        ["time"] = globals.realtime(),
+                                        ["text"] = string.format(
+                                                "tickbase [%s (delay %s)]",
+                                                math.floor(client.latency() * 1000 + 0.5),
+                                                cR.shift_time
+                                        )
+                                    }
+                            )
+                        end
                     end
                 end
             end
-        end
     )
     local c9 = function()
         if ui.is_menu_open() then
@@ -1614,13 +1609,13 @@ local cn = function()
         cK = d3 == 7 or d3 == 10 or d3 == 13 or d3 == 16 or d3 == 39
     end
     client.set_event_callback(
-        "shutdown",
-        function()
-            cr:set_visible(true)
-            cr:set_cache(1, true, 1)
-            ui.set(cF, 16)
-            cN:set_int(1)
-        end
+            "shutdown",
+            function()
+                cr:set_visible(true)
+                cr:set_cache(1, true, 1)
+                ui.set(cF, 16)
+                cN:set_int(1)
+            end
     )
     client.set_event_callback("predict_command", cY)
     client.set_event_callback("setup_command", di)
