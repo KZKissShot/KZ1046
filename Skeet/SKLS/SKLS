@@ -1,47 +1,15 @@
 {
   "Lua": [
     {
-      "Name": "zhumin",
-      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/zhumin"
-    },
-    {
-      "Name": "MISC_Jumpshot",
-      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/MISC_Jumpshot"
-    },
-    {
       "Name": "KZAA",
       "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/KZAA"
     },
     {
-      "Name": "Customize_Logs",
-      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/Customize_Logs"
-    },
-    {
       "Name": "KZWeapon",
       "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/KZWeapon"
-    },
-    {
-      "Name": "Color_effects",
-      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/ColorEffects"
-    },
-    {
-      "Name": "DT1",
-      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/DTFDGSD"
-    },
-    {
-      "Name": "legit_auto_wall",
-      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/legit_auto_wall"
     }
   ],
   "Config": [
-    {
-      "Name": "MM",
-      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Config/MM"
-    },
-    {
-      "Name": "HVH",
-      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Config/HVH"
-    }
   ],
   "Users": [
     {
