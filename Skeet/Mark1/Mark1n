@@ -31,6 +31,10 @@
     {
       "Name": "legit_auto_wall",
       "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/legit_auto_wall"
+    },
+    {
+      "Name": "ind1",
+      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/ind"
     }
   ],
   "Config": [
@@ -41,10 +45,6 @@
     {
       "Name": "HVH",
       "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Config/HVH"
-    },
-    {
-      "Name": "ind1",
-      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/ind"
     }
   ],
   "Users": [
