@@ -181,7 +181,7 @@ for kz_weapon_index, kz_weapon_type in pairs(kz_weapon_types) do
 
     KZMenus[kz_weapon_index]["mt_overrides_num"] = ui.new_slider("LUA", "B", "[KZ Overrides: " .. kz_weapon_type .. "] Multi-point", 0, #mt_types, 0, true, "", 1, { [0] = "Off" })
     KZMenus[kz_weapon_index]["mt_overrides"] = {}
-    for override_index = 1, #mt_scale_types do
+    for override_index = 1, #mt_types do
         KZMenus[kz_weapon_index]["mt_overrides"][override_index] = {
             type = ui.new_combobox("LUA", "B", "[" .. kz_weapon_type .. "] Level " .. override_index .. " Multi-point type", mt_types),
             multi_point = ui.new_multiselect("LUA", "B", "[" .. kz_weapon_type .. "] Level " .. override_index .. " Multi-point", { "Head", "Chest", "Stomach", "Arms", "Legs", "Feet" })
