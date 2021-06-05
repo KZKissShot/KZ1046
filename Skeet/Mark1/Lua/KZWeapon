@@ -79,7 +79,7 @@ local local_player = {
         return enemies_visible
     end,
     is_dt_enabled = function()
-        return ui.get(KZRef.dt[1]) and ui.get(KZRef.dt[1])
+        return ui.get(KZRef.dt[1]) and ui.get(KZRef.dt[2])
     end,
     in_air = function()
         return false
