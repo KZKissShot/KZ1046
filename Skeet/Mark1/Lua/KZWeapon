@@ -88,7 +88,7 @@ local local_player = {
         return false
     end,
     is_no_scope = function()
-        return false
+        return entity.get_prop(entity.get_local_player(), "m_bIsScoped") == 0
     end
 }
 
