@@ -446,7 +446,7 @@ client.set_event_callback("setup_command", function(cmd)
     end
 
     local_player.is_no_scope = function()
-        return cmd.in_zoom == 1
+        return cmd.in_zoom == 0
     end
 
     KZVars.get_kz_weapon_index = function()
