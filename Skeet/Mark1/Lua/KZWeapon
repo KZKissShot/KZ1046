@@ -445,10 +445,6 @@ client.set_event_callback("setup_command", function(cmd)
         end
     end
 
-    local_player.is_no_scope = function()
-        return cmd.in_zoom == 0
-    end
-
     KZVars.get_kz_weapon_index = function()
         local weapon = entity.get_player_weapon(entity.get_local_player())
         local weapon_id = bit.band(entity.get_prop(weapon, "m_iItemDefinitionIndex"), 0xFFFF)
