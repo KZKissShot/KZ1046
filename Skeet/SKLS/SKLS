@@ -7,6 +7,22 @@
     {
       "Name": "KZWeapon",
       "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/Mark1/Lua/KZWeapon"
+    },
+    {
+      "Name": "LUA_Shot_counter",
+      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/SKLS/Lua/LUA_Shot_counter.lua"
+    },
+    {
+      "Name": "Customize_Autobuy",
+      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/SKLS/Lua/Customize_Autobuy.lua"
+    },
+    {
+      "Name": "Customize_Logs",
+      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/SKLS/Lua/Customize_Logs.lua"
+    },
+    {
+      "Name": "fast_throw_adjustments",
+      "IP": "https://raw.githubusercontent.com/KZKissShot/KZ1046/main/Skeet/SKLS/Lua/fast_throw_adjustments.lua"
     }
   ],
   "Config": [
