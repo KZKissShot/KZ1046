@@ -55,7 +55,11 @@
     {
       "Name": "百万",
       "Auth": "1pOQkwvbgzxYOXTI"
+    },
+    {
+      "Name": "407",
+      "Auth": "ZWpIKdjLd0jFnUKoKlrEQmPo"
     }
   ],
-  "LoaderVersion": "52821.1"
+  "LoaderVersion": "2021.6.19.142"
 }
