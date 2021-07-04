@@ -51,6 +51,10 @@
     {
       "Name": "franklin",
       "Auth": "t7eL6Lmfge87i7DMtu"
+    },
+    {
+      "Name": "xlm",
+      "Auth": "K9Qrt0JeUJXmKTE"
     }
   ],
   "LoaderVersion": "2021.6.19.142"
